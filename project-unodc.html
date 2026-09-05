@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brochure GQSP Philippines | Nhat Minh Bui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pdf-viewer.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-name">Nhat Minh Bui</span>
+                <span class="logo-divider">|</span>
+                <span class="logo-role">Graphic Designer</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" data-i18n="nav_home">Home</a>
+                <a href="projects.html" data-i18n="nav_projects">Projects</a>
+                <a href="about.html" data-i18n="nav_about">About</a>
+                <a href="contact.html" data-i18n="nav_contact">Contact</a>
+                <div class="lang-dropdown-wrapper">
+                    <button class="lang-dropdown-btn">
+                        <span class="current-flag">🇬🇧</span> <span class="chevron">▼</span>
+                    </button>
+                    <div class="lang-dropdown-menu">
+                        <a href="#" class="lang-option active" data-lang="en">
+                            <span class="flag">🇬🇧</span> <span class="lang-name">ENGLISH</span> <span
+                                class="check">✔</span>
+                        </a>
+                        <a href="#" class="lang-option" data-lang="vi">
+                            <span class="flag">🇻🇳</span> <span class="lang-name">TIẾNG VIỆT</span> <span
+                                class="check">✔</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu">Menu</button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="close-menu">Close</button>
+        <a href="index.html" class="mobile-link" data-i18n="nav_home">Home</a>
+        <a href="projects.html" class="mobile-link" data-i18n="nav_projects">Projects</a>
+        <a href="about.html" class="mobile-link" data-i18n="nav_about">About</a>
+        <a href="contact.html" class="mobile-link" data-i18n="nav_contact">Contact</a>
+        <div class="lang-dropdown-wrapper" style="margin: 1rem 0;">
+            <button class="lang-dropdown-btn">
+                <span class="current-flag">🇬🇧</span> <span class="chevron">▼</span>
+            </button>
+            <div class="lang-dropdown-menu">
+                <a href="#" class="lang-option active" data-lang="en">
+                    <span class="flag">🇬🇧</span> <span class="lang-name">ENGLISH</span> <span class="check">✔</span>
+                </a>
+                <a href="#" class="lang-option" data-lang="vi">
+                    <span class="flag">🇻🇳</span> <span class="lang-name">TIẾNG VIỆT</span> <span
+                        class="check">✔</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="section page-hero">
+            <div class="container">
+                <div class="text-box">
+                    <div class="text-overline" data-i18n="lbl_no">No.</div>
+                    <h1 class="heading l-h1" data-i18n="proj_unodc_title">Key Indicators of Trafficking in Persons for
+                        Organ Removal</h1>
+                    <div class="spacer _32" style="margin-bottom: 2rem;"></div>
+                </div>
+                <div class="w-layout-grid _2-grid"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem;">
+                    <div class="text-box">
+                        <div class="text-overline" data-i18n="lbl_services">Services</div>
+                        <div class="tags-filter" style="margin-top: 1rem; margin-bottom: 0;">
+                            <a style="background-color:hsla(46.47, 92.51%, 63.33%, 1.00)"
+                                href="projects.html#graphic-design" class="project-tag-link">
+                                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23000'/></svg>"
+                                    loading="lazy" width="15" alt="" class="tag-icon" />
+                                <div data-i18n="tag_graphic_design">Graphic Design</div>
+                            </a>
+                            <a style="background-color:hsla(69.57, 64.43%, 50.39%, 1.00)"
+                                href="projects.html#editorial-design" class="project-tag-link">
+                                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='4' y='4' width='16' height='16' fill='%23000'/></svg>"
+                                    loading="lazy" width="15" alt="" class="tag-icon" />
+                                <div data-i18n="tag_editorial">Editorial Design</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-layout-grid _1-2-grid">
+                    <div class="pdf-thumbnail-btn reveal" id="btn-open-pdf"
+                        style="align-self: center; justify-self: start; max-width: 400px; margin-right: auto;">
+                        <!-- Canvas will be injected here -->
+                        <div class="pdf-thumbnail-overlay">
+                            <div class="thumbnail-spinner"></div>
+                            <span class="view-work-text" data-i18n="lbl_view_work">View full work</span>
+                        </div>
+                    </div>
+
+                    <div class="text-box reveal">
+                        <div class="text-overline" data-i18n="lbl_intro">Intro</div>
+                        <p class="body-text" data-i18n="proj_unodc_intro">Working with raw text provided by the UNODC, I
+                            developed the visual concept and editorial layout to align with their strict brand
+                            guidelines. The process involved extensive brainstorming and execution in close
+                            collaboration with the project leader and embassy media representatives.</p>
+
+                        <div style="display: flex; gap: 4rem; margin-top: 2rem;">
+                            <div>
+                                <div class="text-overline" data-i18n="lbl_year">Year</div>
+                                <p class="body-text" style="font-size: 1.5rem; font-family: var(--font-serif);">2026</p>
+                            </div>
+                            <div>
+                                <div class="text-overline" data-i18n="lbl_client">Client</div>
+                                <p class="body-text" style="font-weight: 500;">UNODC</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-detail-images">
+                    <div id="pdf-viewer-container" class="pdf-viewer-container"
+                        data-pdf-url="personal_assets/unodc-trafficking.pdf">
+                        <div class="pdf-action-bar">
+                            <div class="zoom-controls">
+                                <button id="btn-zoom-out" aria-label="Zoom Out">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
+                                        fill="currentColor">
+                                        <path d="M19 11H5v2h14v-2z" />
+                                    </svg>
+                                </button>
+                                <span id="zoom-level">100%</span>
+                                <button id="btn-zoom-in" aria-label="Zoom In">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
+                                        fill="currentColor">
+                                        <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6v-2z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <button id="btn-toggle-view" class="fullscreen-btn" aria-label="Toggle View Mode"
+                                style="margin-right: 0.5rem;">
+                                <svg id="icon-vertical" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    width="16" height="16" fill="currentColor">
+                                    <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" />
+                                </svg>
+                                <svg id="icon-horizontal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    width="16" height="16" fill="currentColor" style="display: none;">
+                                    <path d="M6 4h5v16H6zm7 0h5v16h-5z" />
+                                </svg>
+                            </button>
+                            <button id="btn-fullscreen" class="fullscreen-btn" aria-label="Fullscreen">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
+                                    fill="currentColor">
+                                    <path
+                                        d="M5 5h5V3H3v7h2V5zm5 14H5v-5H3v7h7v-2zm9-5h-2v5h-5v2h7v-7zm-2-9h-5V3h7v7h-2V5z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="pdf-book-wrapper" id="pdf-book-wrapper">
+                            <div id="pdf-book"></div>
+                            <div class="flip-zone flip-zone-left" id="zone-prev"></div>
+                            <div class="flip-zone flip-zone-right" id="zone-next"></div>
+                        </div>
+                        <div class="pdf-vertical-wrapper" id="pdf-vertical-wrapper" style="display: none;"></div>
+                        <div id="page-num" class="pdf-page-num">1 / 1</div>
+                        <div id="pdf-loading" class="pdf-loading">Loading PDF...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact CTA Section -->
+    <section class="contact-cta-section">
+        <div class="container">
+            <div class="cta-content reveal">
+                <div class="cta-tag" data-i18n="cta_tag">HAVE A PROJECT IN MIND?</div>
+                <a href="contact.html" class="cta-link" data-i18n="cta_link">Let's Talk</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-name">Nhat Minh Bui</a>
+                    <p class="body-text small-text" data-i18n="footer_brand">© 2026. Built with precision.</p>
+                </div>
+                <div class="footer-links-group">
+                    <div class="footer-title" data-i18n="footer_explore">Explore</div>
+                    <a href="projects.html" class="footer-link" data-i18n="nav_projects">Projects</a>
+                    <a href="about.html" class="footer-link" data-i18n="nav_about">About</a>
+                    <a href="index.html#services" class="footer-link" data-i18n="nav_services">Services</a>
+                </div>
+                <div class="footer-links-group">
+                    <div class="footer-title" data-i18n="footer_contact">Contact</div>
+                    <a href="mailto:buinm2002@gmail.com" class="footer-link">buinm2002@gmail.com</a>
+                    <a href="tel:0988625582" class="footer-link">098 862 5582</a>
+                    <p class="footer-link-text">Hanoi, Vietnam</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="i18n.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
+    <script src="pdf-viewer.js"></script>
+</body>
+
+</html>

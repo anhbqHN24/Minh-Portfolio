@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Nhat Minh Bui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-name">Nhat Minh Bui</span>
+                <span class="logo-divider">|</span>
+                <span class="logo-role">Graphic Designer</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" data-i18n="nav_home">Home</a>
+                <a href="projects.html" data-i18n="nav_projects" style="opacity: 0.6;">Projects</a>
+                <a href="about.html" data-i18n="nav_about">About</a>
+                <a href="contact.html" data-i18n="nav_contact">Contact</a>
+                <div class="lang-dropdown-wrapper">
+                    <button class="lang-dropdown-btn">
+                        <span class="current-flag">🇬🇧</span> <span class="chevron">▼</span>
+                    </button>
+                    <div class="lang-dropdown-menu">
+                        <a href="#" class="lang-option active" data-lang="en">
+                            <span class="flag">🇬🇧</span> <span class="lang-name">ENGLISH</span> <span
+                                class="check">✔</span>
+                        </a>
+                        <a href="#" class="lang-option" data-lang="vi">
+                            <span class="flag">🇻🇳</span> <span class="lang-name">TIẾNG VIỆT</span> <span
+                                class="check">✔</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu">Menu</button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="close-menu">Close</button>
+        <a href="index.html" class="mobile-link" data-i18n="nav_home">Home</a>
+        <a href="projects.html" class="mobile-link" data-i18n="nav_projects">Projects</a>
+        <a href="about.html" class="mobile-link" data-i18n="nav_about">About</a>
+        <a href="contact.html" class="mobile-link" data-i18n="nav_contact">Contact</a>
+        <div class="lang-dropdown-wrapper" style="margin: 1rem 0;">
+            <button class="lang-dropdown-btn">
+                <span class="current-flag">🇬🇧</span> <span class="chevron">▼</span>
+            </button>
+            <div class="lang-dropdown-menu">
+                <a href="#" class="lang-option active" data-lang="en">
+                    <span class="flag">🇬🇧</span> <span class="lang-name">ENGLISH</span> <span class="check">✔</span>
+                </a>
+                <a href="#" class="lang-option" data-lang="vi">
+                    <span class="flag">🇻🇳</span> <span class="lang-name">TIẾNG VIỆT</span> <span
+                        class="check">✔</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="section page-hero">
+            <div class="container">
+                <div class="text-box">
+                    <h1 class="heading l-h1" data-i18n="projects_page_title" style="font-size: 4rem;">My Projects</h1>
+                    <p class="body-text"
+                        style="text-transform: uppercase; max-width: 600px; margin-top: 1.5rem; font-weight: 500; font-size: 0.875rem;"
+                        data-i18n="projects_page_subtitle">I've worked on a variety of different types of projects for
+                        different clients to suit their individual needs.</p>
+                    <div class="tags-filter">
+                        <a href="#all" class="project-tag-link" style="background-color: var(--border-color);">All
+                            Projects</a>
+                        <a style="background-color: hsla(197.73, 100%, 77.45%, 1.00);" href="#illustration"
+                            class="project-tag-link">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polygon points='12,2 22,22 2,22' fill='%23000'/></svg>"
+                                loading="lazy" width="15" alt="" class="tag-icon" />
+                            <div data-i18n="tag_illustration">Illustration</div>
+                        </a>
+                        <a style="background-color: hsla(69.57, 64.43%, 50.39%, 1.00);" href="#editorial-design"
+                            class="project-tag-link">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='4' y='4' width='16' height='16' fill='%23000'/></svg>"
+                                loading="lazy" width="15" alt="" class="tag-icon" />
+                            <div data-i18n="tag_editorial">Editorial Design</div>
+                        </a>
+                        <a style="background-color: hsla(46.47, 92.51%, 63.33%, 1.00);" href="#graphic-design"
+                            class="project-tag-link">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23000'/></svg>"
+                                loading="lazy" width="15" alt="" class="tag-icon" />
+                            <div data-i18n="tag_graphic_design">Graphic Design</div>
+                        </a>
+                        <a style="background-color: hsla(280.47, 92.51%, 83.33%, 1.00);" href="#infographic"
+                            class="project-tag-link">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2 L22 12 L12 22 L2 12 Z' fill='%23000'/></svg>"
+                                loading="lazy" width="15" alt="" class="tag-icon" />
+                            <div data-i18n="tag_infographic">Infographic</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="projects-table">
+                    <div class="projects-table-header">
+                        <div data-i18n="lbl_no">NO.</div>
+                        <div data-i18n="lbl_client">CLIENT</div>
+                        <div data-i18n="lbl_services">SERVICES</div>
+                        <div data-i18n="lbl_year">YEAR</div>
+                    </div>
+
+                    <!-- GQSP Philippines -->
+                    <a href="project-gqsp.html"
+                        class="project-list-row project-item graphic-design editorial-design reveal">
+                        <div class="col-no">01</div>
+                        <div class="col-client" data-i18n="proj_gqsp_title">GQSP Philippines</div>
+                        <div class="col-services">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23f28b46'/></svg>"
+                                alt="Graphic Design">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='4' y='4' width='16' height='16' fill='%2355b6a7'/></svg>"
+                                alt="Editorial Design">
+                        </div>
+                        <div class="col-year">2026</div>
+                    </a>
+
+                    <!-- IOM Migration Manual -->
+                    <a href="project-iom-sotay.html"
+                        class="project-list-row project-item editorial-design infographic reveal">
+                        <div class="col-no">02</div>
+                        <div class="col-client" data-i18n="proj_iom_man_title">IOM Migration Manual</div>
+                        <div class="col-services">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='4' y='4' width='16' height='16' fill='%2355b6a7'/></svg>"
+                                alt="Editorial Design">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2 L22 12 L12 22 L2 12 Z' fill='%23d492ff'/></svg>"
+                                alt="Infographic">
+                        </div>
+                        <div class="col-year">2026</div>
+                    </a>
+
+                    <!-- UNODC Trafficking Indicators -->
+                    <a href="project-unodc.html"
+                        class="project-list-row project-item graphic-design editorial-design reveal">
+                        <div class="col-no">03</div>
+                        <div class="col-client" data-i18n="proj_unodc_title">Key Indicators of Trafficking in Persons
+                            for Organ Removal</div>
+                        <div class="col-services">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23f28b46'/></svg>"
+                                alt="Graphic Design">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='4' y='4' width='16' height='16' fill='%2355b6a7'/></svg>"
+                                alt="Editorial Design">
+                        </div>
+                        <div class="col-year">2025</div>
+                    </a>
+
+                    <!-- IOM Calendar -->
+                    <a href="project-iom-calendar.html"
+                        class="project-list-row project-item graphic-design illustration reveal">
+                        <div class="col-no">04</div>
+                        <div class="col-client" data-i18n="proj_iom_cal_title">IOM Calendar 2024</div>
+                        <div class="col-services">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23f28b46'/></svg>"
+                                alt="Graphic Design">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polygon points='12,2 22,22 2,22' fill='%236db6f2'/></svg>"
+                                alt="Illustration">
+                        </div>
+                        <div class="col-year">2023</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact CTA Section -->
+    <section class="contact-cta-section">
+        <div class="container">
+            <div class="cta-content reveal">
+                <div class="cta-tag" data-i18n="cta_tag">HAVE A PROJECT IN MIND?</div>
+                <a href="contact.html" class="cta-link" data-i18n="cta_link">Let's Talk</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-name">Nhat Minh Bui</a>
+                    <p class="body-text small-text" data-i18n="footer_brand">© 2026. Built with precision.</p>
+                </div>
+                <div class="footer-links-group">
+                    <div class="footer-title" data-i18n="footer_explore">Explore</div>
+                    <a href="projects.html" class="footer-link" data-i18n="nav_projects">Projects</a>
+                    <a href="about.html" class="footer-link" data-i18n="nav_about">About</a>
+                    <a href="index.html#services" class="footer-link" data-i18n="nav_services">Services</a>
+                </div>
+                <div class="footer-links-group">
+                    <div class="footer-title" data-i18n="footer_contact">Contact</div>
+                    <a href="mailto:buinm2002@gmail.com" class="footer-link">buinm2002@gmail.com</a>
+                    <a href="tel:0988625582" class="footer-link">098 862 5582</a>
+                    <p class="footer-link-text">Hanoi, Vietnam</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="i18n.js"></script>
+</body>
+
+</html>
