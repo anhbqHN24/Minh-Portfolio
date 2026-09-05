@@ -678,6 +678,7 @@ h2 {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 4rem;
+    padding-block: 4rem;
 }
 
 .split-right {
