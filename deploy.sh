@@ -111,21 +111,55 @@ if [[ "$MODE" == "1" ]]; then
         echo -e "Bạn có thể kiểm tra nội bộ bằng lệnh: ${YELLOW}curl http://localhost:$HOST_PORT${NC}"
         
         echo ""
-        read -p "$(echo -e ${YELLOW}"Bạn có muốn xem mẫu cấu hình Nginx để trỏ Domain không? (y/n): "${NC})" NGINX_CONFIRM
+        read -p "$(echo -e ${YELLOW}"Bạn có muốn cấu hình Nginx TỰ ĐỘNG để trỏ Domain không? (y/n): "${NC})" NGINX_CONFIRM
         if [[ "$NGINX_CONFIRM" == "y" || "$NGINX_CONFIRM" == "Y" ]]; then
-            echo ""
-            echo -e "${BLUE}Cấu hình Nginx tham khảo (thường đặt tại /etc/nginx/sites-available/portfolio):${NC}"
-            echo -e "server {"
-            echo -e "    listen 80;"
-            echo -e "    server_name ten-mien-cua-ban.com;"
-            echo -e ""
-            echo -e "    location / {"
-            echo -e "        proxy_pass http://localhost:$HOST_PORT;"
-            echo -e "        proxy_set_header Host \$host;"
-            echo -e "        proxy_set_header X-Real-IP \$remote_addr;"
-            echo -e "        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;"
-            echo -e "    }"
-            echo -e "}"
+            read -p "$(echo -e ${YELLOW}"Nhập tên miền của bạn (Ví dụ: minh-portfolio.com): "${NC})" DOMAIN_NAME
+            if [[ -n "$DOMAIN_NAME" ]]; then
+                NGINX_CONF_PATH=""
+                NGINX_LINK_PATH=""
+                if [ -d "/etc/nginx/sites-available" ]; then
+                    NGINX_CONF_PATH="/etc/nginx/sites-available/$DOMAIN_NAME"
+                    NGINX_LINK_PATH="/etc/nginx/sites-enabled/$DOMAIN_NAME"
+                elif [ -d "/etc/nginx/conf.d" ]; then
+                    NGINX_CONF_PATH="/etc/nginx/conf.d/$DOMAIN_NAME.conf"
+                else
+                    echo -e "${RED}[LỖI] Không tìm thấy thư mục cấu hình Nginx chuẩn. Bỏ qua cấu hình tự động.${NC}"
+                fi
+
+                if [[ -n "$NGINX_CONF_PATH" ]]; then
+                    echo -e "${BLUE}>>> Đang tạo cấu hình Nginx cho $DOMAIN_NAME...${NC}"
+                    sudo bash -c "cat > $NGINX_CONF_PATH" <<EOF
+server {
+    listen 80;
+    server_name $DOMAIN_NAME www.$DOMAIN_NAME;
+
+    location / {
+        proxy_pass http://localhost:$HOST_PORT;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    }
+}
+EOF
+                    if [[ -n "$NGINX_LINK_PATH" ]]; then
+                        sudo ln -sf "$NGINX_CONF_PATH" "$NGINX_LINK_PATH"
+                    fi
+                    
+                    sudo systemctl reload nginx || sudo service nginx reload
+                    echo -e "${GREEN}[THÀNH CÔNG] Đã cấu hình Nginx tự động!${NC}"
+                    
+                    echo ""
+                    echo -e "${YELLOW}========================================================================${NC}"
+                    echo -e "${GREEN} HƯỚNG DẪN CẤU HÌNH DNS TÊN MIỀN (DOMAIN DNS SETUP)${NC}"
+                    echo -e "${YELLOW}========================================================================${NC}"
+                    echo -e "Để website hoạt động trên internet, hãy truy cập trang quản lý DNS của"
+                    echo -e "nhà cung cấp tên miền (Cloudflare, GoDaddy...) và thêm 2 bản ghi sau:"
+                    echo -e "1. Record Type: ${BLUE}A${NC} | Name/Host: ${BLUE}@${NC} | Value: ${BLUE}[IP_CỦA_VPS_NÀY]${NC}"
+                    echo -e "2. Record Type: ${BLUE}A${NC} (hoặc CNAME) | Name/Host: ${BLUE}www${NC} | Value: ${BLUE}[IP_CỦA_VPS_NÀY]${NC} (hoặc $DOMAIN_NAME)"
+                    echo -e "Lưu ý: Bạn có thể lấy IP của VPS bằng lệnh: ${BLUE}curl ifconfig.me${NC}"
+                    echo -e "${YELLOW}========================================================================${NC}"
+                fi
+            fi
         fi
     else
         echo -e "${RED}[LỖI] Khởi chạy container thất bại.${NC}"
@@ -142,6 +176,8 @@ elif [[ "$MODE" == "2" ]]; then
 
     read -p "$(echo -e ${YELLOW}"Nhập Tên Image cần gỡ bỏ [Mặc định: $DEFAULT_IMAGE_NAME]: "${NC})" IMAGE_NAME
     IMAGE_NAME=${IMAGE_NAME:-$DEFAULT_IMAGE_NAME}
+
+    read -p "$(echo -e ${YELLOW}"Nhập Tên Miền (Domain) đã cấu hình (Để trống nếu không có): "${NC})" DOMAIN_NAME
 
     echo ""
     read -p "$(echo -e ${RED}"[CẢNH BÁO] Việc này sẽ DỪNG và XÓA HOÀN TOÀN container ($CONTAINER_NAME) cùng image ($IMAGE_NAME). Bạn có chắc chắn không? (y/n): "${NC})" CONFIRM
@@ -160,6 +196,23 @@ elif [[ "$MODE" == "2" ]]; then
             echo -e "${GREEN}[THÀNH CÔNG] Đã xóa sạch image '$IMAGE_NAME'.${NC}"
         else
             echo -e "${YELLOW}[THÔNG BÁO] Image '$IMAGE_NAME' không tồn tại. Bỏ qua thao tác này.${NC}"
+        fi
+
+        if [[ -n "$DOMAIN_NAME" ]]; then
+            echo ""
+            echo -e "${GREEN}>>> ĐANG DỌN DẸP CẤU HÌNH NGINX...${NC}"
+            if [ -f "/etc/nginx/sites-available/$DOMAIN_NAME" ]; then
+                sudo rm -f "/etc/nginx/sites-available/$DOMAIN_NAME"
+                sudo rm -f "/etc/nginx/sites-enabled/$DOMAIN_NAME"
+                sudo systemctl reload nginx || sudo service nginx reload
+                echo -e "${GREEN}[THÀNH CÔNG] Đã xóa cấu hình Nginx của $DOMAIN_NAME.${NC}"
+            elif [ -f "/etc/nginx/conf.d/$DOMAIN_NAME.conf" ]; then
+                sudo rm -f "/etc/nginx/conf.d/$DOMAIN_NAME.conf"
+                sudo systemctl reload nginx || sudo service nginx reload
+                echo -e "${GREEN}[THÀNH CÔNG] Đã xóa cấu hình Nginx của $DOMAIN_NAME.${NC}"
+            else
+                echo -e "${YELLOW}[THÔNG BÁO] Không tìm thấy file cấu hình Nginx của $DOMAIN_NAME.${NC}"
+            fi
         fi
         
         echo ""
