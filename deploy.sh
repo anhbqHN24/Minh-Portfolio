@@ -113,8 +113,20 @@ if [[ "$MODE" == "1" ]]; then
         echo ""
         read -p "$(echo -e ${YELLOW}"Bạn có muốn cấu hình Nginx TỰ ĐỘNG để trỏ Domain không? (y/n): "${NC})" NGINX_CONFIRM
         if [[ "$NGINX_CONFIRM" == "y" || "$NGINX_CONFIRM" == "Y" ]]; then
-            read -p "$(echo -e ${YELLOW}"Nhập tên miền của bạn (Ví dụ: minh-portfolio.com): "${NC})" DOMAIN_NAME
+            read -p "$(echo -e ${YELLOW}"Nhập tên miền của bạn (Ví dụ: minh-portfolio.com hoặc sub.domain.com): "${NC})" DOMAIN_NAME
             if [[ -n "$DOMAIN_NAME" ]]; then
+                
+                read -p "$(echo -e ${YELLOW}"Tên miền này có kèm theo alias 'www' (www.$DOMAIN_NAME) không? (Chọn 'n' nếu đây là Subdomain): (y/n) "${NC})" INCLUDE_WWW
+                if [[ "$INCLUDE_WWW" == "y" || "$INCLUDE_WWW" == "Y" ]]; then
+                    SERVER_NAMES="$DOMAIN_NAME www.$DOMAIN_NAME"
+                    CERTBOT_DOMAINS="-d $DOMAIN_NAME -d www.$DOMAIN_NAME"
+                    DNS_WWW_MSG="2. Record Type: ${BLUE}A${NC} (hoặc CNAME) | Name/Host: ${BLUE}www${NC} | Value: ${BLUE}[IP_CỦA_VPS_NÀY]${NC} (hoặc $DOMAIN_NAME)"
+                else
+                    SERVER_NAMES="$DOMAIN_NAME"
+                    CERTBOT_DOMAINS="-d $DOMAIN_NAME"
+                    DNS_WWW_MSG=""
+                fi
+                
                 NGINX_CONF_PATH=""
                 NGINX_LINK_PATH=""
                 if [ -d "/etc/nginx/sites-available" ]; then
@@ -131,7 +143,7 @@ if [[ "$MODE" == "1" ]]; then
                     sudo bash -c "cat > $NGINX_CONF_PATH" <<EOF
 server {
     listen 80;
-    server_name $DOMAIN_NAME www.$DOMAIN_NAME;
+    server_name $SERVER_NAMES;
 
     location / {
         proxy_pass http://localhost:$HOST_PORT;
@@ -154,8 +166,10 @@ EOF
                     echo -e "${YELLOW}========================================================================${NC}"
                     echo -e "Để website hoạt động trên internet, hãy truy cập trang quản lý DNS của"
                     echo -e "nhà cung cấp tên miền (Cloudflare, GoDaddy...) và thêm 2 bản ghi sau:"
-                    echo -e "1. Record Type: ${BLUE}A${NC} | Name/Host: ${BLUE}@${NC} | Value: ${BLUE}[IP_CỦA_VPS_NÀY]${NC}"
-                    echo -e "2. Record Type: ${BLUE}A${NC} (hoặc CNAME) | Name/Host: ${BLUE}www${NC} | Value: ${BLUE}[IP_CỦA_VPS_NÀY]${NC} (hoặc $DOMAIN_NAME)"
+                    echo -e "1. Record Type: ${BLUE}A${NC} | Name/Host: ${BLUE}@${NC} (hoặc $DOMAIN_NAME) | Value: ${BLUE}[IP_CỦA_VPS_NÀY]${NC}"
+                    if [[ -n "$DNS_WWW_MSG" ]]; then
+                        echo -e "$DNS_WWW_MSG"
+                    fi
                     echo -e "Lưu ý: Bạn có thể lấy IP của VPS bằng lệnh: ${BLUE}curl ifconfig.me${NC}"
                     echo -e "${YELLOW}========================================================================${NC}"
                     
@@ -175,9 +189,9 @@ EOF
                         if command -v certbot &> /dev/null; then
                             echo -e "${BLUE}>>> Đang xin cấp chứng chỉ SSL và cấu hình Nginx tự động...${NC}"
                             if [[ -n "$EMAIL_ADDRESS" ]]; then
-                                sudo certbot --nginx -d $DOMAIN_NAME -d www.$DOMAIN_NAME --non-interactive --agree-tos -m "$EMAIL_ADDRESS" --redirect
+                                sudo certbot --nginx $CERTBOT_DOMAINS --non-interactive --agree-tos -m "$EMAIL_ADDRESS" --redirect
                             else
-                                sudo certbot --nginx -d $DOMAIN_NAME -d www.$DOMAIN_NAME --non-interactive --agree-tos --register-unsafely-without-email --redirect
+                                sudo certbot --nginx $CERTBOT_DOMAINS --non-interactive --agree-tos --register-unsafely-without-email --redirect
                             fi
                             
                             if [ $? -eq 0 ]; then
