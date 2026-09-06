@@ -158,6 +158,40 @@ EOF
                     echo -e "2. Record Type: ${BLUE}A${NC} (hoặc CNAME) | Name/Host: ${BLUE}www${NC} | Value: ${BLUE}[IP_CỦA_VPS_NÀY]${NC} (hoặc $DOMAIN_NAME)"
                     echo -e "Lưu ý: Bạn có thể lấy IP của VPS bằng lệnh: ${BLUE}curl ifconfig.me${NC}"
                     echo -e "${YELLOW}========================================================================${NC}"
+                    
+                    echo ""
+                    read -p "$(echo -e ${YELLOW}"[QUAN TRỌNG] Bạn đã trỏ tên miền (DNS) về IP của VPS này thành công chưa? Nếu đã trỏ, bạn có muốn Cài đặt Bảo mật SSL/HTTPS (Let's Encrypt) TỰ ĐỘNG không? (y/n): "${NC})" SSL_CONFIRM
+                    if [[ "$SSL_CONFIRM" == "y" || "$SSL_CONFIRM" == "Y" ]]; then
+                        read -p "$(echo -e ${YELLOW}"Nhập địa chỉ Email của bạn (để Let's Encrypt gửi thông báo gia hạn SSL): "${NC})" EMAIL_ADDRESS
+                        
+                        echo -e "${BLUE}>>> Đang cài đặt Certbot...${NC}"
+                        if command -v apt &> /dev/null; then
+                            sudo apt update && sudo apt install -y certbot python3-certbot-nginx
+                        elif command -v yum &> /dev/null; then
+                            sudo yum install -y epel-release
+                            sudo yum install -y certbot python3-certbot-nginx
+                        fi
+                        
+                        if command -v certbot &> /dev/null; then
+                            echo -e "${BLUE}>>> Đang xin cấp chứng chỉ SSL và cấu hình Nginx tự động...${NC}"
+                            if [[ -n "$EMAIL_ADDRESS" ]]; then
+                                sudo certbot --nginx -d $DOMAIN_NAME -d www.$DOMAIN_NAME --non-interactive --agree-tos -m "$EMAIL_ADDRESS" --redirect
+                            else
+                                sudo certbot --nginx -d $DOMAIN_NAME -d www.$DOMAIN_NAME --non-interactive --agree-tos --register-unsafely-without-email --redirect
+                            fi
+                            
+                            if [ $? -eq 0 ]; then
+                                echo -e "${GREEN}[THÀNH CÔNG] Đã bật HTTPS an toàn cho tên miền của bạn!${NC}"
+                                echo -e "Bây giờ bạn có thể truy cập bằng: ${BLUE}https://$DOMAIN_NAME${NC}"
+                            else
+                                echo -e "${RED}[LỖI] Không thể cấp SSL. Có thể do tên miền chưa được trỏ IP kịp thời, vui lòng chờ DNS cập nhật và tự chạy lệnh certbot sau.${NC}"
+                            fi
+                        else
+                            echo -e "${RED}[LỖI] Không thể tự động cài đặt Certbot trên hệ thống của bạn.${NC}"
+                        fi
+                    else
+                        echo -e "${YELLOW}[THÔNG BÁO] Bỏ qua cài đặt SSL. Bạn có thể tự cài đặt sau bằng tay.${NC}"
+                    fi
                 fi
             fi
         fi
@@ -200,7 +234,12 @@ elif [[ "$MODE" == "2" ]]; then
 
         if [[ -n "$DOMAIN_NAME" ]]; then
             echo ""
-            echo -e "${GREEN}>>> ĐANG DỌN DẸP CẤU HÌNH NGINX...${NC}"
+            echo -e "${GREEN}>>> ĐANG DỌN DẸP CẤU HÌNH SSL & NGINX...${NC}"
+            if command -v certbot &> /dev/null; then
+                sudo certbot delete --cert-name $DOMAIN_NAME --non-interactive 2>/dev/null
+                echo -e "${GREEN}[THÀNH CÔNG] Đã gỡ bỏ chứng chỉ SSL của $DOMAIN_NAME (nếu có).${NC}"
+            fi
+            
             if [ -f "/etc/nginx/sites-available/$DOMAIN_NAME" ]; then
                 sudo rm -f "/etc/nginx/sites-available/$DOMAIN_NAME"
                 sudo rm -f "/etc/nginx/sites-enabled/$DOMAIN_NAME"
