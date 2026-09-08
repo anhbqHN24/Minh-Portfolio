@@ -21,6 +21,10 @@ html {
     font-size: 16px;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-primary);
@@ -372,6 +376,11 @@ h2 {
     font-family: var(--font-sans);
     font-size: 1rem;
     margin-top: 2rem;
+}
+
+.mobile-menu .lang-dropdown-menu {
+    top: auto;
+    bottom: calc(100% + 0.5rem);
 }
 
 /* Hero Section */
@@ -961,6 +970,11 @@ h2 {
 }
 
 @media (max-width: 768px) {
+    .logo-divider,
+    .logo-role {
+        display: none;
+    }
+    
     .about-hero-title-wrapper h1 {
         font-size: clamp(2.5rem, 10vw, 4rem);
     }
