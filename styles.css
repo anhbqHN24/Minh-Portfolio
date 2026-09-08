@@ -949,13 +949,28 @@ h2 {
     ._2-1-grid,
     ._1-2-grid,
     .services-wrapper,
-    .footer-grid {
+    .faq-wrapper {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
         gap: 2rem;
     }
 }
 
 @media (max-width: 768px) {
+    .about-hero-title-wrapper h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+    
+    .pill-badge {
+        height: auto;
+        padding-block: 0.1em;
+        line-height: 1.2;
+    }
+
     .nav-links {
         display: none;
     }

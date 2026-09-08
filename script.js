@@ -111,12 +111,11 @@ if (contactForm) {
         e.preventDefault();
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
-        const company = document.getElementById('company').value;
         const phone = document.getElementById('phone').value;
         const message = document.getElementById('message').value;
 
         const subject = `New Contact from ${name} - Portfolio`;
-        const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0ACompany: ${company}%0D%0APhone: ${phone}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+        const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0A%0D%0AMessage:%0D%0A${message}`;
 
         window.location.href = `mailto:buinm2002@gmail.com?subject=${subject}&body=${body}`;
     });
